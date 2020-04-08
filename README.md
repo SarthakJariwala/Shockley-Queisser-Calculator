@@ -1,0 +1,7 @@
+# Schokley-Queisser-Calculator
+A Schokley-Queisser calculator for calculating theoretical efficiencies of solar cells with an interactive user interface.
+
+## Features
+* Calculate Schockley Queisser efficiency limit and related parameters for a given bandgap, temperature and solar spectrum
+* Plot SQ limit J-V curve for a given bandgap of the solar cell
+* Plot power conversion efficiency, fill factor, current density, and open-circuit voltage as a function of different bandgaps
