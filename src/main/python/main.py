@@ -57,8 +57,10 @@ class MainWindow(QtWidgets.QMainWindow):
         #Connect PushButtons to Functions etc
         self.ui.CalcualteSQ_pushButton.clicked.connect(self.calculate_SQ)
         self.ui.load_pushButton.clicked.connect(self.load_SMARTS_spectrum)
+        self.ui.save_pushButton.clicked.connect(self.save_bandgap_array)
 
         self.astmg173_file = astmg173_file
+        self.out_array = None
         
         self.show()
     
@@ -198,6 +200,8 @@ class MainWindow(QtWidgets.QMainWindow):
                 voc_array[i] = metadata[6]
                 jsc_array[i] = metadata[5]
             
+            self.out_array = np.array((bandgap_array,pce_array,ff_array, voc_array,jsc_array)).T
+            
             plt.figure(figsize=(5,4), dpi=300)
             plt.title('Tcell = %.3f K' %(Tcell))
             plt.xlim(bandgap_array[0], bandgap_array[len(bandgap_array) - 1])
@@ -261,6 +265,13 @@ class MainWindow(QtWidgets.QMainWindow):
             self.ui.textBrowser.append('--')
         else:
             self.ui.textBrowser.append('--')
+    
+    def save_bandgap_array(self):
+        if self.out_array is None:
+            self.ui.textBrowser.append("Calculate SQ limit before saving file!")
+        else:
+            filename = QtWidgets.QFileDialog.getSaveFileName(self)
+            np.savetxt(filename[0]+".txt", self.out_array, delimiter='\t', header="Bandgap, PCE, FillFactor, Voc, Jsc")
 
 #def run():
 #    win = MainWindow()
