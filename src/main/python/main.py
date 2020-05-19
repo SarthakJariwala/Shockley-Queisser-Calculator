@@ -111,12 +111,14 @@ class MainWindow(QtWidgets.QMainWindow):
         
         if self.ui.load_checkBox.isChecked():
             astmg173 = np.loadtxt(self.astmg173_file, delimiter = ',', skiprows = 2)
+            am15_wav = np.copy(astmg173[:,0]) #AM1.5 wavelength axis in nm
+            am15 = np.copy(astmg173[:,2]) #AM1.5 in units of W/m^2/nm = J/s*m^2/nm
         else:
             astmg173 = self.SMARTS#np.genfromtxt(r"C:/Users/sarth/Desktop/chennai_new_smarts295.ext.txt", skip_header=1)
 
-        am15_wav = np.copy(astmg173[:,0]) #AM1.5 wavelength axis in nm
+            am15_wav = np.copy(astmg173[:,0]) #AM1.5 wavelength axis in nm
 
-        am15 = np.copy(astmg173[:,2]) #AM1.5 in units of W/m^2/nm = J/s*m^2/nm
+            am15 = np.copy(astmg173[:,1]) #AM1.5 in units of W/m^2/nm = J/s*m^2/nm
 
         total_power_nm = simps(am15, x = am15_wav) #Integrate over nm to check that total power density = 1000 W/m^2
 

@@ -8,3 +8,4 @@ A Shockley-Queisser calculator for calculating theoretical efficiencies of solar
 * Plot SQ limit J-V curve for a given bandgap of the solar cell
 * Plot power conversion efficiency, fill factor, current density, and open-circuit voltage as a function of different bandgaps
 * Can export calculated PCE, Voc, FF, Jsc for an array of bandgaps (new in v1.0.1)
+* Can also use SMARTS spectrum output (wavelength and global tilted irradiance must be first and second column respectively)
