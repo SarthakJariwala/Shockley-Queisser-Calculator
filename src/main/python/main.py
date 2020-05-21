@@ -4,10 +4,8 @@ from fbs_runtime.application_context.PyQt5 import ApplicationContext, cached_pro
 import sys
 from pathlib import Path
 
-# module imports
-import pyqtgraph as pg
-from pyqtgraph.Qt import QtCore, QtGui, QtWidgets
-from PyQt5 import uic
+# module imports 
+from PyQt5 import uic, QtWidgets
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
@@ -34,15 +32,6 @@ class AppContext(ApplicationContext):
         return MainWindow(self.get_design(), self.get_file())
 
 matplotlib.use('Qt5Agg')
-
-#pg.mkQApp()
-
-#base_path = Path(__file__).parent
-#file_path = (base_path / "SQ_GUI.ui").resolve()
-
-#uiFile = file_path
-
-#WindowTemplate, TemplateBaseClass = uic.loadUi(uiFile)
 
 class MainWindow(QtWidgets.QMainWindow):  
     
@@ -102,7 +91,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         bandgap_array_min = self.ui.bandgap_min_doubleSpinBox.value() #in eV
         bandgap_array_max = self.ui.bandgap_max_doubleSpinBox.value() # in eV
-        num_points_bandgap_array = 30
+        num_points_bandgap_array = self.ui.no_points_spinBox.value()
 
 
         """Programming below"""
