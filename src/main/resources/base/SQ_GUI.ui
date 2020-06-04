@@ -180,10 +180,10 @@
     <item row="4" column="1" colspan="2">
      <widget class="QLabel" name="label_6">
       <property name="styleSheet">
-       <string notr="true">font: 9pt &quot;Arial&quot;;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
-       <string>For a single bandgap</string>
+       <string>For a Single Bandgap</string>
       </property>
      </widget>
     </item>
@@ -204,10 +204,10 @@
     <item row="11" column="1" colspan="2">
      <widget class="QLabel" name="label_7">
       <property name="styleSheet">
-       <string notr="true">font: 9pt &quot;Arial&quot;;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
-       <string>For an array of bandgaps</string>
+       <string>For an Array of Bandgaps</string>
       </property>
      </widget>
     </item>
