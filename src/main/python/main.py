@@ -1,4 +1,5 @@
 from fbs_runtime.application_context.PyQt5 import ApplicationContext, cached_property
+from fbs_runtime.platform import is_windows, is_mac
 #from PyQt5.QtWidgets import QMainWindow
 # system imports
 import sys
@@ -30,8 +31,10 @@ class AppContext(ApplicationContext):
     @cached_property
     def main_window(self):
         return MainWindow(self.get_design(), self.get_file())
-
-matplotlib.use('Qt5Agg')
+if is_windows():
+    matplotlib.use('Qt5Agg')
+elif is_mac():
+    matplotlib.use('macosx')
 
 class MainWindow(QtWidgets.QMainWindow):  
     
@@ -193,39 +196,43 @@ class MainWindow(QtWidgets.QMainWindow):
             
             self.out_array = np.array((bandgap_array,pce_array,ff_array, voc_array,jsc_array)).T
             
-            plt.figure(figsize=(5,4), dpi=300)
-            plt.title('Tcell = %.3f K' %(Tcell))
+            plt.figure(figsize=(5,4))
+            plt.title('Cell Temperature = %.2f K' %(Tcell))
             plt.xlim(bandgap_array[0], bandgap_array[len(bandgap_array) - 1])
             plt.ylabel('PCE (%)')
             plt.xlabel('Bandgap (eV)')
             plt.plot(bandgap_array, pce_array * 100)
+            plt.tight_layout()
             plt.show()
 
-            plt.figure(figsize=(5,4), dpi=300)
-            plt.title('Tcell = %.3f K' %(Tcell))
+            plt.figure(figsize=(5,4))
+            plt.title('Cell Temperature = %.2f K' %(Tcell))
             plt.ylim(0, 1)
             plt.xlim(bandgap_array[0], bandgap_array[len(bandgap_array) - 1])
             plt.ylabel('Fill Factor')
             plt.xlabel('Bandgap (eV)')
             plt.plot(bandgap_array, ff_array)
+            plt.tight_layout()
             plt.show()
 
-            plt.figure(figsize=(5,4), dpi=300)
-            plt.title('Tcell = %.3f K' %(Tcell))
+            plt.figure(figsize=(5,4))
+            plt.title('Cell Temperature = %.2f K' %(Tcell))
             plt.xlim(bandgap_array[0], bandgap_array[len(bandgap_array) - 1])
             plt.ylabel('Jsc (mA/cm$^2$)')
             plt.xlabel('Bandgap (eV)')
             plt.plot(bandgap_array, jsc_array)
+            plt.tight_layout()
             plt.show()
 
-            plt.figure(figsize=(5,4), dpi=300)
-            plt.title('Tcell = %.3f K' %(Tcell))
+            plt.figure(figsize=(5,4))
+            plt.title('Cell Temperature = %.2f K' %(Tcell))
             plt.xlim(bandgap_array[0], bandgap_array[len(bandgap_array) - 1])
             plt.ylabel('Voc (V)')
             plt.xlabel('Bandgap (eV)')
             plt.plot(bandgap_array, voc_array, label = 'S-Q Voc')
             plt.plot(bandgap_array, bandgap_array, '--', label = 'Bandgap')
             plt.legend(loc = 'best')
+            plt.tight_layout()
             plt.show()
 
             self.ui.textBrowser.append('--')
@@ -247,11 +254,12 @@ class MainWindow(QtWidgets.QMainWindow):
             v_array = jv_meta[0]
             jv_array = jv_meta[1]
 
-            plt.figure(figsize=(5,4), dpi=300)
+            plt.figure(figsize=(5,4))
             plt.ylabel('Current Density (mA/cm$^2$)')
             plt.xlabel('Voltage (V)')
             plt.plot(v_array, -jv_array)
             plt.title('J-V Curve for '+str(self.ui.bandgap_doubleSpinBox.value())+'eV')
+            plt.tight_layout()
             plt.show()
             self.ui.textBrowser.append('--')
         else:
