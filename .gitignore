@@ -2,3 +2,4 @@ __pycache__
 .vscode
 target/
 src/main/python/__pycache__/
+.DS_Store
