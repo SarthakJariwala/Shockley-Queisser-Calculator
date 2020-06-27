@@ -1,12 +1,11 @@
 from fbs_runtime.application_context.PyQt5 import ApplicationContext, cached_property
 from fbs_runtime.platform import is_windows, is_mac
-#from PyQt5.QtWidgets import QMainWindow
 # system imports
 import sys
-from pathlib import Path
 
 # module imports 
 from PyQt5 import uic, QtWidgets
+from PyQt5.QtWidgets import QMessageBox
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
@@ -51,6 +50,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.load_pushButton.clicked.connect(self.load_SMARTS_spectrum)
         self.ui.save_pushButton.clicked.connect(self.save_bandgap_array)
 
+        #start app with checked "plot j-v curve"
+        self.ui.plot_checkBox.setChecked(True)
+
         self.astmg173_file = astmg173_file
         self.out_array = None
         
@@ -62,7 +64,10 @@ class MainWindow(QtWidgets.QMainWindow):
             self.SMARTS = np.genfromtxt(filename[0], skip_header=1)
             self.ui.load_checkBox.setChecked(False)
         except Exception as e:
-            print(e)
+            QMessageBox.information(
+                self, None, 
+                str(e), QMessageBox.Ok
+                )
 
 
 
@@ -82,7 +87,6 @@ class MainWindow(QtWidgets.QMainWindow):
         #self.ui.textBrowser.append(str('Tcell = %.3f' %(Tcell)))
 
         plot_jv = self.ui.plot_checkBox.isChecked() #'True' if you want to plot the SQ JV curve for "bandgap"
-                    #'False' if not (faster)
 
 
         plot_bandgap_array = self.ui.calc_SQ_array_checkBox.isChecked() #'True' if you want to plot SQ parameters for an array of bandgaps 
@@ -106,11 +110,19 @@ class MainWindow(QtWidgets.QMainWindow):
             am15_wav = np.copy(astmg173[:,0]) #AM1.5 wavelength axis in nm
             am15 = np.copy(astmg173[:,2]) #AM1.5 in units of W/m^2/nm = J/s*m^2/nm
         else:
-            astmg173 = self.SMARTS#np.genfromtxt(r"C:/Users/sarth/Desktop/chennai_new_smarts295.ext.txt", skip_header=1)
+            try:
+                astmg173 = self.SMARTS
 
-            am15_wav = np.copy(astmg173[:,0]) #AM1.5 wavelength axis in nm
+                am15_wav = np.copy(astmg173[:,0]) #AM1.5 wavelength axis in nm
 
-            am15 = np.copy(astmg173[:,1]) #AM1.5 in units of W/m^2/nm = J/s*m^2/nm
+                am15 = np.copy(astmg173[:,1]) #AM1.5 in units of W/m^2/nm = J/s*m^2/nm
+            except:
+                QMessageBox.information(
+                    self, None, 
+                    "No valid spectrum file found!\n\n"+
+                    "Load a valid file or check the 'Use ASTMG173'box"
+                )
+                return
 
         total_power_nm = simps(am15, x = am15_wav) #Integrate over nm to check that total power density = 1000 W/m^2
 
