@@ -3,6 +3,10 @@ A Shockley-Queisser calculator for calculating theoretical efficiencies of solar
 
 [DOWNLOAD](https://github.com/SarthakJariwala/Schokley-Queisser-Calculator/releases)
 
+## Screenshots
+[!UI Interface](https://github.com/SarthakJariwala/Schokley-Queisser-Calculator/Screenshots/SQ_Calculator_UI.png)
+[!JV-Curve](https://github.com/SarthakJariwala/Schokley-Queisser-Calculator/Screenshots/j_v_curve.png))
+
 ## Features
 * Calculate Shockley Queisser efficiency limit and related parameters for a given bandgap, temperature and solar spectrum
 * Plot SQ limit J-V curve for a given bandgap of the solar cell
