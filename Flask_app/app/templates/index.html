@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shockley-Queisser Calculator</title>
+</head>
+<body>
+    <h1>Online Shockley-Queisser Calculator</h1>
+    <form method="POST" action="/">
+        {{ form.csrf_token }}
+        <div class="container">
+            {{ form.bandgap.label }} {{ form.bandgap }}
+        </div>
+        <div class="container">
+            {{ form.temperature.label }} {{ form.temperature}}
+        </div>
+        <div class="container">
+            <input type="submit" value="Calculate">
+        </div>
+        <div class="container">
+            {{ form.output.label }} {{ form.output }}
+        </div>
+    </form>
+    
+</body>
+</html>
