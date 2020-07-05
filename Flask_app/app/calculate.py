@@ -113,7 +113,12 @@ def calculate_SQ(bandgap, temperature):
 
     maxpcemeta = V_mpp_Jmpp_maxpower_maxeff_ff(bandgap)
 
-    return (str('For Bandgap = %.3f eV, TCell = %.3f K:\nJSC = %.3f mA/cm^2\nVOC = %.3f V\nFF = %.3f\nPCE = %.3f' % (bandgap, Tcell, maxpcemeta[5], maxpcemeta[6],maxpcemeta[4], maxpcemeta[3] * 100)))
+    return str(
+        'For Bandgap = %.3f eV, T Cell = %.3f K:\n'% (bandgap, Tcell)+
+        'Short circuit current density = %.3f mA/cm^2\n' % (maxpcemeta[5])+
+        'Open circuit voltage = %.3f V\n' % (maxpcemeta[6])+
+        'Fill Factor = %.3f\n' % (maxpcemeta[4])+
+        'Power Conversion Efficiency = %.3f' % (maxpcemeta[3] * 100))
 
     #     if plot_bandgap_array == True:
             

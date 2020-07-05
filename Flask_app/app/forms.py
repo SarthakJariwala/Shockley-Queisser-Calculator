@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, DecimalField, TextAreaField
+from wtforms import DecimalField, TextAreaField, SubmitField
 from wtforms.validators import DataRequired
 
 
@@ -16,4 +16,8 @@ class SQ_Form(FlaskForm):
         places=2
     )
 
-    output = TextAreaField("Shockley-Quesisser Limit")
+    submit = SubmitField("Calculate")
+
+    output = TextAreaField(
+        "Shockley-Quesisser Efficiency Limit is :",
+        render_kw={'rows':5})
